@@ -1,55 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Find Nearest Oncology Clinics - BrainTrace</title>
-  <link rel="stylesheet" href="CSS/chatbot.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li class="items"><a href="index.html">Home</a></li>
-        <li class="items"><a href="about.html">About us</a></li>
-        <li class="items"><a href="form.html">Form</a></li>
-        <li class="items"><a href="chatbot.html">Chatbot</a></li>
-      </ul>
-    </nav>
-  </header>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #343a40;
+    margin: 0;
+  }
   
-  <main>
-    <div class="container">
-      <h1>Find Nearest Oncology Clinics</h1>
-      <div class="search-options">
-        <button id="current-location-btn">Use My Current Location</button>
-        <div class="manual-location">
-          <input type="text" id="location-input" placeholder="Or enter a location (address or city)">
-          <button id="search-location-btn">Search</button>
-        </div>
-      </div>
-      <div class="sort-options">
-        <label for="sort-select">Sort by:</label>
-        <select id="sort-select">
-          <option value="distance" selected>Distance</option>
-          <option value="rating">Rating</option>
-        </select>
-      </div>
-      <!-- Map Container -->
-      <div id="map"></div>
-      <!-- Results Container -->
-      <div id="results-container"></div>
-    </div>
-  </main>
+  header {
+    background-color: #ff0000;
+    padding: 10px 0;
+  }
   
-  <footer>
-    <div class="footer-container">
-      <p>&copy; 2025 BrainTrace</p>
-    </div>
-  </footer>
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
   
-  <!-- Load Google Maps JavaScript API (replace YOUR_GOOGLE_API_KEY with your key) -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1pfhuyVXxqZqitrfZo5lJXJfCBWHv5kM&libraries=places"></script>
-  <script src="JS/chatbot.js"></script>
-</body>
-</html>  
+  nav ul li {
+    margin: 0 15px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+  }
+  
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-options, .sort-options {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .search-options button,
+  .sort-options select,
+  .search-options input {
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+  }
+  
+  .manual-location {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  /* Map styling */
+  #map {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  #results-container {
+    margin-top: 20px;
+  }
+  
+  .result-item {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .result-item:last-child {
+    border-bottom: none;
+  }
+  
+  .result-item h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .result-item p {
+    margin: 5px 0;
+  }
+  
+  .result-item img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
