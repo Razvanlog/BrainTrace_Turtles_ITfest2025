@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrainTrace</title>
-    <link rel="stylesheet" href="CSS/chatbot.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <meta name="view-transition" content="same-origin">
-    <link rel="stylesheet" href="CSS/menu.css">
-    <script src="JS/menu.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find Nearest Oncology Clinics - BrainTrace</title>
+  <link rel="stylesheet" href="CSS/chatbot.css">
 </head>
 <body>
-<header>
+  <header>
     <nav>
-        <ul>
-            <li class="items"><a href="index.html">Home</a></li>
-            <li class="items"><a href="about.html">About us</a></li>
-            <li class="items"><a href="form.html">Form</a></li>
-            <li class="items"><a href="chatbot.html">Chatbot</a></li>
-        </ul>
+      <ul>
+        <li class="items"><a href="index.html">Home</a></li>
+        <li class="items"><a href="about.html">About us</a></li>
+        <li class="items"><a href="form.html">Form</a></li>
+        <li class="items"><a href="chatbot.html">Chatbot</a></li>
+      </ul>
     </nav>
-</header>
-<main>
-    <div class="wrapper">
-        <div class="chat-container" id="chat-container"></div>
-        <form id="chat-form">
-            <input type="text" id="user-input" placeholder="Type your answer here...">
-            <button type="submit">Send</button>
-        </form>
-    </div>
-</main>
-<footer>
+  </header>
+  
+  <main>
     <div class="container">
-        <p>&copy; 2025 turtles</p>
+      <h1>Find Nearest Oncology Clinics</h1>
+      <div class="search-options">
+        <button id="current-location-btn">Use My Current Location</button>
+        <div class="manual-location">
+          <input type="text" id="location-input" placeholder="Or enter a location (address or city)">
+          <button id="search-location-btn">Search</button>
+        </div>
+      </div>
+      <div class="sort-options">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select">
+          <option value="distance" selected>Distance</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
+      <!-- Map Container -->
+      <div id="map"></div>
+      <!-- Results Container -->
+      <div id="results-container"></div>
     </div>
-</footer>
-<script src="JS/form.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-<script src="JS/chatbot.js"></script>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2025 BrainTrace</p>
+    </div>
+  </footer>
+  
+  <!-- Load Google Maps JavaScript API (replace YOUR_GOOGLE_API_KEY with your key) -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1pfhuyVXxqZqitrfZo5lJXJfCBWHv5kM&libraries=places"></script>
+  <script src="JS/chatbot.js"></script>
 </body>
-</html>
+</html>  
