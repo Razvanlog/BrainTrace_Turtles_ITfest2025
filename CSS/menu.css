@@ -1,0 +1,119 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 60px; /* Adjust this value if your navbar is taller or shorter */
+}
+
+/* Header styles */
+header {
+    background-color: #003366; /* Dark blue background */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000; /* Keeps the navbar on top of other content */
+}
+
+nav {
+    display: flex;
+    justify-content: center; /* Center align items horizontally */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Navigation Menu */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li:first-child {
+    margin-left: 0;
+}
+
+nav ul li a {
+    color: white; /* White text */
+    text-decoration: none;
+    font-size: 16px;
+    padding: 7px 15px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #006633; /* Dark green hover effect */
+    border-radius: 4px;
+}
+
+/* Mobile menu toggle button styling */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Logo specific styles */
+.logo img {
+    width: 100px;
+}
+
+/* Sticky Navbar - already fixed but checking again for clarity */
+nav.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+        position: absolute;
+        top: 60px; /* This ensures it drops directly below the navbar */
+        left: 0;
+        background-color: #003366; /* Dark blue for mobile background */
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li {
+        text-align: center;
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 10px;
+        border-bottom: 1px solid #006633; /* Dark green border */
+    }
+
+    nav ul li:last-child a {
+        border-bottom: none;
+    }
+}

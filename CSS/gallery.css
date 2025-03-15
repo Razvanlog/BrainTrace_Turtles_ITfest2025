@@ -1,0 +1,86 @@
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    min-height: 100vh; /* Ensure body takes at least viewport height */
+    display: flex;
+    flex-direction: column; /* Arrange children in a column */
+}
+
+/* Header styles */
+header {
+    background-color: #ff0000; /* Red background */
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Main content styles */
+main {
+    flex: 1; /* Grow to fill remaining space */
+    padding: 20px;
+    animation: fadeInMain 1s ease forwards; /* Fade-in animation */
+}
+
+@keyframes fadeInMain {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slider styles */
+.slider {
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slides img {
+    width: 100%;
+    display: block;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+/* Footer styles */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom */
+}

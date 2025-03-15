@@ -1,0 +1,20 @@
+#scrollToTopBtn {
+    display: none;  /* The button will be hidden initially */
+    position: fixed;  /* Keeps the button in the same spot on the screen */
+    bottom: 20px;  /* 20 pixels from the bottom */
+    right: 20px;  /* 20 pixels from the right */
+    z-index: 1000;  /* Ensures the button is above other content */
+    font-size: 16px;  /* Reasonable font size for visibility */
+    border: none;  /* No border */
+    outline: none;  /* Removes the outline to keep the style clean */
+    background-color: #ff0000;  /* A bright red color that stands out */
+    color: white;  /* White text color for contrast */
+    cursor: pointer;  /* Cursor indicates the element is clickable */
+    padding: 10px 20px;  /* Top/bottom padding of 10px and left/right of 20px */
+    border-radius: 50%;  /* Fully rounded button */
+    transition: background-color 0.3s ease;  /* Smooth transition for hover effect */
+}
+
+#scrollToTopBtn:hover {
+    background-color: #cc0000;  /* A darker shade of red on hover */
+}

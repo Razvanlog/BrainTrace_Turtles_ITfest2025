@@ -1,0 +1,94 @@
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Header styles */
+header {
+    background-color: #ff0000; /* Red background */
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+    opacity: 0;
+    animation: fadeInMain 1s ease forwards; /* Fade-in animation */
+}
+
+@keyframes fadeInMain {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Section styles */
+section {
+    margin-bottom: 30px;
+}
+
+section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto; /* Ensuring margin applies around the image */
+    padding: 10px; /* Padding around images */
+    background-color: #fff; /* Background color for better contrast */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow for better depth */
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+    padding: 0 10px; /* Added padding for better text readability */
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Responsive design adjustments */
+@media (min-width: 992px) {
+    main {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Three columns for large screens */
+        grid-gap: 10px; /* Reduced gap for a tighter layout */
+    }
+}
+
+@media (max-width: 991px) {
+    main {
+        display: grid;
+        grid-template-columns: 1fr; /* One column for small screens */
+        grid-gap: 10px; /* Smaller gap for narrow screens */
+    }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainTrace</title>
+    <link rel="stylesheet" href="CSS/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <meta name="view-transition" content="same-origin">
+    <link rel="stylesheet" href="CSS/menu.css">
+    <script src="JS/menu.js"></script>
+    <script src="JS/index_BackToTop.js"></script>
+    <link rel="stylesheet" href="CSS/index_BackToTop.css">
+    <script src="JS/index_SearchPosts.js"></script>
+    <link rel="stylesheet" href="CSS/index_SearchPosts.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="items"><a href="index.html">Home</a></li>
+                <li class="items"><a href="about.html">About us</a></li>
+                <li class="items"><a href="form.html">Form</a></li>
+                <li class="items"><a href="chatbot.html">Chatbot</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Search posts...">
+                <button id="searchButton" onclick="searchPosts()">Search</button>
+            </div>
+            <article>
+                <h2>ceva titlu</h2>
+                <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Erat sodales sodales magnis fusce dictum commodo senectus taciti. Aullamcorper erat eu libero maecenas malesuada? Senectus quis nunc ligula ante hendrerit imperdiet massa. Porta quis dis conubia nunc facilisi. Bibendum neque eros dignissim felis elit. Turpis ultrices nisl nullam lacus leo vivamus. Molestie euismod in; duis imperdiet tortor cursus mus. Habitant ridiculus finibus magnis est commodo nunc imperdiet malesuada. Facilisi sem commodo hac arcu maximus vulputate.</p>
+            </article>
+            <article>
+                <h2>altu</h2>
+                <ul>
+                    <li>Lorem ipsum odor amet, consectetuer adipiscing elit. Erat sodales sodales magnis fusce dictum commodo senectus taciti...</li>
+                    <li>Lorem ipsum odor amet, consectetuer adipiscing elit. Erat sodales sodales magnis fusce dictum commodo senectus taciti...</li>
+                    <li>Lorem ipsum odor amet, consectetuer adipiscing elit. Erat sodales sodales magnis fusce dictum commodo senectus taciti...</li>
+                    <li>Lorem ipsum odor amet, consectetuer adipiscing elit. Erat sodales sodales magnis fusce dictum commodo senectus taciti...</li>
+                </ul>
+            </article>
+            <article>
+                <h2>titlu</h2>
+                <ul>
+                    <li>Lorem ipsum odor amet, consectetuer adipiscing elit...</li>
+                    <li>Lorem ipsum odor amet, consectetuer adipiscing elit...
+                        <ul>
+                            <li>a</li>
+                            <li>b</li>
+                            <li>c</li>
+                            <li>d</li>
+                            <li>e</li>
+                            <li>fadasjkf</li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+        </div>
+        <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top">Back to Top</button>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 turtles</p>
+        </div>
+    </footer>
+</body>
+</html>

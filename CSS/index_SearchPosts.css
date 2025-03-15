@@ -1,0 +1,24 @@
+#searchContainer {
+    text-align: center;
+    margin-bottom: 20px; /* Adjust as necessary */
+}
+
+#searchInput {
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+#searchButton {
+    padding: 10px 15px;
+    background-color: #007BFF; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}

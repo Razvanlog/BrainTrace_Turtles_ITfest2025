@@ -1,0 +1,104 @@
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Header styles */
+header {
+    background-color: #ff0000; /* Red background */
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    animation: fadeInHeader 1s ease-in; /* Entry animation for header */
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+}
+
+article {
+    margin-bottom: 20px;
+    padding: 20px; /* Added padding around articles for better spacing */
+    background-color: #ffffff; /* Optional: Adds background color to articles */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Adds subtle shadow to articles */
+    transition: transform 0.3s ease; /* Transition for post elements */
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding: 0 10px; /* Added padding to paragraphs for better readability */
+}
+
+article img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 10px; /* Added padding around images */
+    background-color: #fff; /* Background color for better image contrast */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds shadow to images */
+}
+
+/* Footer styles */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Grid layout */
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+}
+
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Entry animation for main blog title */
+h1 {
+    opacity: 0;
+    animation: fadeInTitle 1s ease-in forwards;
+}
+
+@keyframes fadeInTitle {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for menu transition */
+@keyframes fadeInHeader {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
