@@ -11,7 +11,6 @@ import numpy as np
 from PIL import Image
 db_filename='/home/razvan/repos/itfest2025_AImodeltraining/BrainTrace_Turtles_ITfest2025_site/demo/db.sqlite3'
 photo_storage='/home/razvan/repos/itfest2025_AImodeltraining/BrainTrace_Turtles_ITfest2025_site/demo/media/'
-# '/tumor_images/'
 ok=1
 if ok==1:
     conn=sqlite3.connect(db_filename)
@@ -28,7 +27,6 @@ if ok==1:
         (fname,lname,email,photo_location)=i
         ok=0
         if photo_location!="" or photo_location!=None:
-            # print(photo_storage+" "+photo_location)
             try:
                 im=Image.open(photo_storage+photo_location)
                 width,height=im.size
@@ -59,7 +57,7 @@ if ok==1:
                 msg['To']=receiver_email
                 message=MIMEText('Hey '+fname+' '+lname+',\n The result of the analysis of the MRI scan is '+strResult+'.')
                 msg.attach(message)
-                password='asxyyoywyunwpedh'
+                password=''
                 context=ssl.create_default_context()
                 print('ok')
                 with smtplib.SMTP(smtp_server,port) as server:
