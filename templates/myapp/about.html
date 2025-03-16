@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainTrace</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/about.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/menu.css' %}">
+    <script type="text/javascript" src="{% static 'JS/menu.js' %}"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="items"><a href="{% url 'home' %}">Home</a></li>
+                <li class="items"><a href="{% url 'about' %}">About us</a></li>
+                <li class="items"><a href="{% url 'form' %}">Upload MRI</a></li>
+                <li class="items"><a href="{% url 'chatbot' %}">Clinics</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        <section>
+            <h2>Our Mission</h2>
+            <p>At BrainTrace, we want to make medical imaging smarter and easier with AI. Our goal is to help doctors find and understand health problems faster, so patients can get the right treatment sooner. We believe that technology should support healthcare professionals, not replace them.
+            
+            By using AI, we can make medical analysis more accurate, reduce waiting times, and help doctors focus on what really matters—caring for people. Our mission is to bring reliable, easy-to-use AI tools to hospitals and clinics, making healthcare better for everyone.</p>
+        </section>
+
+        <section>
+            <h2>How It Works</h2>
+            <p>BrainTrace is an AI-powered tool designed to help doctors detect brain tumors quickly and accurately. Using advanced machine learning, our system analyzes MRI scans to identify different types of tumors and assist in early diagnosis.</p>
+            <ul>
+                <li>Glioma</li>
+                <li>Meningioma</li>
+                <li>Pituitary Tumor</li>
+                <li>No Tumor</li>
+            </ul>
+            <p>BrainTrace does not replace medical professionals but serves as a second opinion, helping doctors analyze MRI results faster and with greater accuracy. Our goal is to support early detection and improve patient care.</p>
+        </section>
+
+        <section>
+            <h2>Meet the Team</h2>
+            <p>We are a group of passionate students dedicated to using AI to improve medical diagnostics. BrainTrace was developed with the goal of helping doctors detect brain tumors faster and more accurately through AI-powered analysis.</p>
+            <p>Our team combines skills in artificial intelligence, software development, and medical research to create a tool that can assist medical professionals in their daily work. We believe that technology should support doctors by providing faster and more reliable insights, ultimately improving patient care.</p>
+            <p>We are constantly learning, improving, and refining BrainTrace to make it as effective and accessible as possible.</p>
+        </section>
+
+        <section>
+            <h2>Medical Disclaimer</h2>
+            <p>BrainTrace is designed to assist medical professionals in detecting brain tumors, but it is not a replacement for professional medical diagnosis. Always consult a qualified healthcare provider for an accurate diagnosis and treatment.</p>
+        </section>
+
+        <section>
+            <h2>Contact & Socials</h2>
+            <p>If you have any questions or want to learn more about BrainTrace, feel free to reach out to us.</p>           
+            <p>Email:</p>
+            <ul>
+                <li><a href="mailto:anca.stanoev04@e-uvt.ro">anca.stanoev04@e-uvt.ro</a></li>
+                <li><a href="mailto:dania.budo04@example.ro">dania.budo04@example.com</a></li>
+                <li><a href="mailto:daria.berca04@e-uvt.ro">daria.berca04@e-uvt.ro</a></li>
+                <li><a href="mailto:razvan.diaconescu04@e-uvt.ro">razvan.diaconescu04@e-uvt.ro</a></li>
+                <li><a href="mailto:alexandru.borcean04@e-uvt.ro">alexandru.borcean04@e-uvt.ro</a></li>
+            </ul> 
+        </section>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 BrainTrace. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

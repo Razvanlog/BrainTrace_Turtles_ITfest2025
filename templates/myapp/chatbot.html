@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find Nearest Oncology Clinics - BrainTrace</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'CSS/chatbot.css' %}">
+  <link rel="stylesheet" href="{% static 'CSS/menu.css' %}">
+  <script type="text/javascript" src="{% static 'JS/menu.js' %}"></script>
+  
+  <!-- Leaflet CSS for new map implementation -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <!-- Optional: Additional CSS to style the new controls and map inside the container -->
+  <style>
+    /* Ensure the leaflet map wrapper has a defined height */
+    #leaflet-map-wrapper {
+      position: relative;
+      height: 500px; /* adjust as needed */
+      margin-top: 20px;
+    }
+    /* Map takes full height of the wrapper */
+    #leaflet-map-wrapper #map {
+      height: 100%;
+      width: 100%;
+    }
+    /* Style for the controls */
+    #leaflet-map-wrapper #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      font-family: sans-serif;
+    }
+    #leaflet-map-wrapper #controls input {
+      padding: 5px;
+      margin-right: 5px;
+      width: 250px;
+    }
+    #leaflet-map-wrapper #controls button {
+      padding: 5px 10px;
+      margin-top: 5px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="items"><a href="{% url 'home' %}">Home</a></li>
+        <li class="items"><a href="{% url 'about' %}">About</a></li>
+        <li class="items"><a href="{% url 'form' %}">Upload MRI</a></li>
+        <li class="items"><a href="{% url 'chatbot' %}">Clinics</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="container">
+      <h1>Find Nearest Oncology Clinics</h1>
+      
+      <!-- New Leaflet map and search controls inside a wrapper -->
+      <div id="leaflet-map-wrapper">
+        <!-- Controls for selecting a location -->
+        <div id="controls">
+          <div>
+            <input type="text" id="locationInput" placeholder="Enter location in Romania" />
+            <button id="searchButton">Search by Address</button>
+          </div>
+          <div>
+            <button id="currentLocationButton">Use My Current Location</button>
+          </div>
+        </div>
+        <!-- Map container -->
+        <div id="map"></div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 BrainTrace. All Rights Reserved.</p>
+</footer>
+
+  
+  <!-- Remove the Google Maps API if you're not using it -->
+  {# <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script> #}
+  
+  <!-- Load any existing JS files -->
+  <script src="{% static 'JS/chatbot.js' %}"></script>
+  
+  <!-- Leaflet JS for new map implementation -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+  <!-- New JavaScript for Leaflet map and search functionality -->
+  <script>
+    // Initialize the map centered over Romania
+    var map = L.map('map').setView([45.9432, 24.9668], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Haversine function for computing distances in meters
+    function computeDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371e3;
+      const φ1 = lat1 * Math.PI / 180;
+      const φ2 = lat2 * Math.PI / 180;
+      const Δφ = (lat2 - lat1) * Math.PI / 180;
+      const Δλ = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(Δφ/2) ** 2 + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    // Compute a bounding box for a given center (lat, lon) and radius (in meters)
+    function getBoundingBox(lat, lon, radius) {
+      const deltaLat = radius / 111320;
+      const deltaLon = radius / (111320 * Math.cos(lat * Math.PI / 180));
+      return {
+        south: lat - deltaLat,
+        west: lon - deltaLon,
+        north: lat + deltaLat,
+        east: lon + deltaLon
+      };
+    }
+
+    // Geocode an address using the Nominatim API
+    async function geocodeAddress(address) {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.length > 0) {
+          return {
+            lat: parseFloat(data[0].lat),
+            lon: parseFloat(data[0].lon)
+          };
+        } else {
+          alert("Location not found.");
+          return null;
+        }
+      } catch (error) {
+        console.error("Geocoding error:", error);
+        alert("Error during geocoding.");
+        return null;
+      }
+    }
+
+    // Query Overpass using a bounding box with the given radius
+    async function queryOverpass(lat, lon, radius) {
+      const bbox = getBoundingBox(lat, lon, radius);
+      const bboxString = `${bbox.south},${bbox.west},${bbox.north},${bbox.east}`;
+      // Overpass query to find facilities with names containing "oncolog" or "cancer"
+      const query = `[out:json];
+(
+  node["amenity"~"hospital|clinic"][name~"oncolog|cancer|oncology", i](${bboxString});
+  way["amenity"~"hospital|clinic"][name~"oncolog|cancer|oncology", i](${bboxString});
+  relation["amenity"~"hospital|clinic"][name~"oncolog|cancer|oncology", i](${bboxString});
+);
+out center;`;
+      const response = await fetch("https://overpass-api.de/api/interpreter", {
+        method: "POST",
+        body: query,
+        headers: { "Content-Type": "text/plain" }
+      });
+      const data = await response.json();
+      return data.elements || [];
+    }
+
+    // Iteratively search with expanding radius until some facilities are found (max 300 km)
+    async function findClosestCancerFacilities(lat, lon, maxResults = 5) {
+      let radius = 5000; // start with 5 km
+      const maxRadius = 300000; // max radius of 300 km
+      let facilities = [];
+
+      while (radius <= maxRadius && facilities.length === 0) {
+        facilities = await queryOverpass(lat, lon, radius);
+        if (facilities.length > 0) break;
+        radius *= 2; // Expand search area if nothing found
+      }
+
+      if (facilities.length === 0) {
+        alert("No cancer facility found within 300 km radius.");
+        return [];
+      }
+
+      // Compute distance for each candidate
+      const candidates = facilities.map(element => {
+        let facilityLat, facilityLon;
+        if (element.type === "node") {
+          facilityLat = element.lat;
+          facilityLon = element.lon;
+        } else if (element.center) {
+          facilityLat = element.center.lat;
+          facilityLon = element.center.lon;
+        }
+        const distance = facilityLat != null && facilityLon != null 
+                         ? computeDistance(lat, lon, facilityLat, facilityLon) 
+                         : Infinity;
+        return {
+          lat: facilityLat,
+          lon: facilityLon,
+          name: (element.tags && element.tags.name) ? element.tags.name : "Unnamed Facility",
+          distance: distance
+        };
+      }).filter(f => f.distance !== Infinity);
+
+      // Sort candidates by distance
+      candidates.sort((a, b) => a.distance - b.distance);
+      return candidates.slice(0, maxResults);
+    }
+
+    // Display the facilities on the map with permanent tooltips
+    function displayFacilities(facilities) {
+      const markers = [];
+      facilities.forEach(facility => {
+        const marker = L.marker([facility.lat, facility.lon]).addTo(map);
+        // Bind a permanent tooltip that shows the facility's name and distance
+        marker.bindTooltip(
+          `<b>${facility.name}</b><br>${Math.round(facility.distance)} m`, 
+          { permanent: true, direction: 'top', className: 'facility-tooltip' }
+        ).openTooltip();
+        markers.push(marker);
+      });
+      // Adjust map bounds to include all markers
+      if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.5));
+      }
+    }
+
+    // Main function to run the search and display results
+    async function runSearch(lat, lon) {
+      map.setView([lat, lon], 14);
+      L.marker([lat, lon]).addTo(map)
+        .bindTooltip("Initial Location", { permanent: true, direction: 'top', className: 'initial-location-tooltip' })
+        .openTooltip();
+      const facilities = await findClosestCancerFacilities(lat, lon, 5);
+      if (facilities.length > 0) {
+        displayFacilities(facilities);
+      }
+    }
+
+    // Event handler for searching by address
+    document.getElementById("searchButton").addEventListener("click", async function() {
+      const address = document.getElementById("locationInput").value;
+      if (!address) {
+        alert("Please enter a location.");
+        return;
+      }
+      const location = await geocodeAddress(address);
+      if (!location) return;
+      runSearch(location.lat, location.lon);
+    });
+
+    // Event handler for using the current location
+    document.getElementById("currentLocationButton").addEventListener("click", function() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const { latitude, longitude } = position.coords;
+          runSearch(latitude, longitude);
+        }, function(error) {
+          alert("Unable to retrieve your current location.");
+          console.error("Geolocation error:", error);
+        });
+      } else {
+        alert("Geolocation is not available in your browser.");
+      }
+    });
+  </script>
+  
+</body>
+</html>
